@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ሜዞ ኮፊ - Admin Panel</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #f7d794;
+            margin-bottom: 20px;
+        }
+        .login-box, .admin-box {
+            background: #2a2a2a;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background: #333;
+            color: #fff;
+            font-size: 1em;
+        }
+        button {
+            background: #8B4513;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background: #a0522d;
+        }
+        .item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #333;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        .item-info {
+            flex-grow: 1;
+        }
+        .btn-danger {
+            background: #e74c3c;
+            width: auto;
+            padding: 8px 15px;
+        }
+        .btn-edit {
+            background: #f39c12;
+            width: auto;
+            padding: 8px 15px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>☕ Mezo Coffee - Admin Dashboard</h1>
+
+        <!-- Login Form -->
+        <div id="login-section" class="login-box">
+            <h2 style="margin-bottom: 15px; text-align: center;">ለማስተካከል የይለፍ ቃል ያስገቡ</h2>
+            <input type="password" id="admin-pass" placeholder="ይለፍ ቃል (Password)...">
+            <button onclick="checkPassword()">ግባ (Login)</button>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div id="admin-section" class="admin-box hidden">
+            <h2 id="form-title">አዲስ ምግብ/መጠጥ ጨምር</h2>
+            <input type="hidden" id="item-id">
+            <input type="text" id="item-name" placeholder="የምግብ/መጠጥ ስም (እ.ግ Espresso)">
+            <input type="number" id="item-price" placeholder="ዋጋ በብር">
+            <input type="text" id="item-desc" placeholder="መግለጫ (Description)">
+            <input type="text" id="item-img" placeholder="የምስል ሊንክ (Image URL)">
+            <button id="save-btn" onclick="saveItem()">መዝግብ (Save Item)</button>
+            <button id="cancel-btn" onclick="resetForm()" class="hidden" style="background: #7f8c8d;">ሰርዝ (Cancel)</button>
+
+            <h2 style="margin: 25px 0 15px 0; border-top: 1px solid #444; padding-top: 15px;">የነባር ምግቦች ዝርዝር</h2>
+            <div id="admin-menu-list">
+                <p>መረጃዎችን በመጫን ላይ...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwz3rHazk52QWlFNfB99aER7e1xFtM0O3XXcjBFBCsy3lYv2X3MIGrTw5lJtlxfDG14Mw/exec';
+        const DEFAULT_PASS = "mezo123"; // የዓድሚን ይለፍ ቃል (እዚህ ጋር መቀየር ይችላሉ)
+        let menuItems = [];
+
+        function checkPassword() {
+            let inputPass = document.getElementById('admin-pass').value;
+            if (inputPass === DEFAULT_PASS) {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('admin-section').classList.remove('hidden');
+                loadMenuItems();
+            } else {
+                alert("የተሳሳተ የይለፍ ቃል ነው!");
+            }
+        }
+
+        async function loadMenuItems() {
+            try {
+                let response = await fetch(scriptURL);
+                menuItems = await response.json();
+                let container = document.getElementById('admin-menu-list');
+                container.innerHTML = '';
+
+                menuItems.forEach((item, index) => {
+                    let div = document.createElement('div');
+                    div.className = 'item-row';
+                    div.innerHTML = `
+                        <div class="item-info">
+                            <strong>${item.name}</strong> - ${item.price} ብር
+                            <br><small style="color: #bbb;">${item.description}</small>
+                        </div>
+                        <button class="btn-edit" onclick="editItem(${index})">አስተካክል</button>
+                        <button class="btn-danger" onclick="deleteItem(${item.id})">አጥፋ</button>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (err) {
+                alert("መረጃ መጫን አልተቻለም!");
+            }
+        }
+
+        async function saveItem() {
+            let id = document.getElementById('item-id').value;
+            let name = document.getElementById('item-name').value;
+            let price = document.getElementById('item-price').value;
+            let description = document.getElementById('item-desc').value;
+            let image = document.getElementById('item-img').value;
+
+            if (!name || !price) {
+                alert("እባክዎ የምግቡን ስም እና ዋጋ ያስገቡ!");
+                return;
+            }
+
+            let payload = {
+                action: id ? "update" : "add",
+                id: id,
+                name: name,
+                price: price,
+                description: description,
+                image: image
+            };
+
+            document.getElementById('save-btn').innerText = "በመመዝገብ ላይ...";
+            
+            await fetch(scriptURL, {
+                method: "POST",
+                body: JSON.stringify(payload)
+            });
+
+            alert(id ? "በተሳካ ሁኔታ ተስተካክሏል!" : "አዲስ ምግብ ተጨምሯል!");
+            resetForm();
+            loadMenuItems();
+        }
+
+        function editItem(index) {
+            let item = menuItems[index];
+            document.getElementById('item-id').value = item.id;
+            document.getElementById('item-name').value = item.name;
+            document.getElementById('item-price').value = item.price;
+            document.getElementById('item-desc').value = item.description;
+            document.getElementById('item-img').value = item.image;
+
+            document.getElementById('form-title').innerText = "ምግብ/መጠጥ ማስተካከያ";
+            document.getElementById('save-btn').innerText = "ለውጦችን አስቀምጥ (Update)";
+            document.getElementById('cancel-btn').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('item-id').value = '';
+            document.getElementById('item-name').value = '';
+            document.getElementById('item-price').value = '';
+            document.getElementById('item-desc').value = '';
+            document.getElementById('item-img').value = '';
+
+            document.getElementById('form-title').innerText = "አዲስ ምግብ/መጠጥ ጨምር";
+            document.getElementById('save-btn').innerText = "መዝግብ (Save Item)";
+            document.getElementById('cancel-btn').classList.add('hidden');
+        }
+
+        async function deleteItem(id) {
+            if (confirm("ይህንን ምግብ በእርግጥ ማጥፋት ይፈልጋሉ?")) {
+                await fetch(scriptURL, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "delete", id: id })
+                });
+                alert("በተሳካ ሁኔታ ተሰርዟል!");
+                loadMenuItems();
+            }
+        }
+    </script>
+</body>
+</html>
