@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                         url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1500&q=80');
             background-size: cover;
             background-position: center;
@@ -53,37 +53,47 @@
         }
         .menu-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.94);
             backdrop-filter: blur(8px);
-            padding: 14px 18px;
+            padding: 12px;
             margin-bottom: 12px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border-left: 5px solid #8B4513;
+            gap: 12px;
+        }
+        .item-img {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #8B4513;
+        }
+        .item-details {
+            flex-grow: 1;
         }
         .item-details h3 {
-            font-size: 1.05em;
+            font-size: 1em;
             color: #2c2c2c;
             font-weight: bold;
         }
         .item-details p {
-            font-size: 0.8em;
+            font-size: 0.75em;
             color: #555;
             margin-top: 2px;
         }
-        .item-action {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
         .item-price {
-            font-size: 1.05em;
+            font-size: 0.95em;
             font-weight: bold;
             color: #8B4513;
+            margin-top: 4px;
         }
-        /* የቁጥር መምረጫ (Counter) አዝራሮች */
+        .item-action {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
         .counter-box {
             display: flex;
             align-items: center;
@@ -96,8 +106,8 @@
             background: #8B4513;
             color: white;
             border: none;
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             font-size: 1.1em;
             cursor: pointer;
             font-weight: bold;
@@ -106,21 +116,19 @@
             background: #5c2c0c;
         }
         .item-count {
-            width: 30px;
+            width: 26px;
             text-align: center;
             font-weight: bold;
             color: #333;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
-
-        /* የክፍያ አማራጮች መስክ */
         .payment-section {
             max-width: 600px;
             margin: 20px auto;
             padding: 0 15px;
         }
         .payment-box {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.94);
             padding: 15px 20px;
             border-radius: 12px;
             color: #2c2c2c;
@@ -158,7 +166,6 @@
             margin-left: 24px;
             font-weight: normal;
         }
-        /* ክፍያ የሚፈጸምበት ሊንክ (ቁጥሩን ሲነኩት) */
         .pay-link {
             color: #0066cc;
             text-decoration: underline;
@@ -167,8 +174,6 @@
         .pay-link:hover {
             color: #004080;
         }
-
-        /* የታችኛው ትዕዛዝ መላኪያ ባር */
         .cart-bar {
             position: fixed;
             bottom: 0;
@@ -213,7 +218,7 @@
 
     <header>
         <h1>☕ ሜዞ ኮፊ (Mezo Coffee)</h1>
-        <p>የሚፈልጉትን ቁጥር ይምረጡ፣ ክፍያውን ከታች ፈጽመው ትዕዛዝ ይላኩ</p>
+        <p>የሚፈልጉትን ምግብ እና መጠጥ ይምረጡ፣ ክፍያውን ፈጽመው ትዕዛዝ ይላኩ</p>
     </header>
 
     <div class="menu-container">
@@ -221,12 +226,13 @@
         <div class="category-title">🍽️ ልዩ ቁርሶች</div>
         
         <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=300&q=80" alt="ቆጮ/እርጥብ" class="item-img">
             <div class="item-details">
                 <h3>ቆጮ/እርጥብ</h3>
                 <p>በልዩ ቅቤ እና በርበሬ የተዘጋጀ</p>
+                <div class="item-price">150 ብር</div>
             </div>
             <div class="item-action">
-                <span class="item-price">150 ብር</span>
                 <div class="counter-box">
                     <button class="counter-btn" onclick="changeCount('ቆጮ/እርጥብ', -1)">-</button>
                     <span class="item-count" id="count-ቆጮ/እርጥብ">0</span>
@@ -236,12 +242,13 @@
         </div>
 
         <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=300&q=80" alt="ጨጨብሳ" class="item-img">
             <div class="item-details">
                 <h3>ጨጨብሳ</h3>
                 <p>ጣፋጭ እና ለስላሳ የቤት ውስጥ ጨጨብሳ</p>
+                <div class="item-price">150 ብር</div>
             </div>
             <div class="item-action">
-                <span class="item-price">150 ብር</span>
                 <div class="counter-box">
                     <button class="counter-btn" onclick="changeCount('ጨጨብሳ', -1)">-</button>
                     <span class="item-count" id="count-ጨጨብሳ">0</span>
@@ -251,12 +258,13 @@
         </div>
 
         <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=300&q=80" alt="ፋታ (ፍርፍር)" class="item-img">
             <div class="item-details">
                 <h3>ፋታ (ፍርፍር)</h3>
-                <p>በቀይ ሽንኩርት፣ ቅቤ እና ቅመማቅመም የተዘጋጀ</p>
+                <p>በቀይ ሽንኩርት፣ ቅቤ እና ቅመማቅመም</p>
+                <div class="item-price">200 ብር</div>
             </div>
             <div class="item-action">
-                <span class="item-price">200 ብር</span>
                 <div class="counter-box">
                     <button class="counter-btn" onclick="changeCount('ፋታ (ፍርፍር)', -1)">-</button>
                     <span class="item-count" id="count-ፋታ (ፍርፍር)">0</span>
@@ -269,12 +277,13 @@
         <div class="category-title">☕ ትኩስ መጠጦች</div>
         
         <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80" alt="ቡና" class="item-img">
             <div class="item-details">
                 <h3>ቡና</h3>
                 <p>ጥሩ መዓዛ ያለው የሀገራችን ባህላዊ ቡና</p>
+                <div class="item-price">30 ብር</div>
             </div>
             <div class="item-action">
-                <span class="item-price">30 ብር</span>
                 <div class="counter-box">
                     <button class="counter-btn" onclick="changeCount('ቡና', -1)">-</button>
                     <span class="item-count" id="count-ቡና">0</span>
@@ -284,12 +293,13 @@
         </div>
 
         <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=300&q=80" alt="ሻይ" class="item-img">
             <div class="item-details">
                 <h3>ሻይ</h3>
                 <p>ትኩስ እና ጣፋጭ ሻይ</p>
+                <div class="item-price">30 ብር</div>
             </div>
             <div class="item-action">
-                <span class="item-price">30 ብር</span>
                 <div class="counter-box">
                     <button class="counter-btn" onclick="changeCount('ሻይ', -1)">-</button>
                     <span class="item-count" id="count-ሻይ">0</span>
@@ -299,12 +309,13 @@
         </div>
 
         <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=300&q=80" alt="ወተት" class="item-img">
             <div class="item-details">
                 <h3>ወተት</h3>
                 <p>ትኩስ እና ጣፋጭ ወተት</p>
+                <div class="item-price">50 ብር</div>
             </div>
             <div class="item-action">
-                <span class="item-price">50 ብር</span>
                 <div class="counter-box">
                     <button class="counter-btn" onclick="changeCount('ወተት', -1)">-</button>
                     <span class="item-count" id="count-ወተት">0</span>
@@ -314,7 +325,7 @@
         </div>
     </div>
 
-    <!-- የክፍያ አማራጮች ከቀጥታ መክፈቻ ሊንኮች ጋር -->
+    <!-- የክፍያ አማራጮች -->
     <div class="payment-section">
         <div class="payment-box">
             <h3>💳 የክፍያ አማራጭ (ለመክፈት ቁጥሩን ይጫኑ):</h3>
@@ -344,7 +355,6 @@
         </div>
     </div>
 
-    <!-- የታችኛው ትዕዛዝ መላኪያ ባር -->
     <div class="cart-bar">
         <div class="cart-info">
             አጠቃላይ ዋጋ: <span class="cart-total" id="total-price">0 ብር</span>
@@ -405,7 +415,6 @@
             orderText += `%0A💰 *አጠቃላይ ዋጋ: ${grandTotal} ብር*%0A`;
             orderText += `💳 *የክፍያ ሁኔታ: ${selectedPayment}*`;
 
-            // የእርስዎ ትክክለኛ ዋትስአፕ ስልክ ቁጥር ተካቷል (+251988227317)
             let whatsappNumber = "251988227317"; 
             
             let whatsappURL = `https://wa.me/${whatsappNumber}?text=${orderText}`;
