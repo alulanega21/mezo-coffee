@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ሜዞ ኮፊ (Mezo Coffee) - ዲጂታል ሜኑ</title>
+    <title>ሜዞ ኮፊ - Admin Control Panel</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,378 +12,181 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1500&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-color: #1a1a1a;
             color: #fff;
-            padding-bottom: 110px;
+            padding: 20px;
             min-height: 100vh;
         }
-        header {
+        .container {
+            max-width: 650px;
+            margin: 30px auto;
+        }
+        h1 {
             text-align: center;
-            padding: 35px 20px 15px 20px;
-            position: relative;
-        }
-        header h1 {
-            font-size: 2.3em;
-            margin-bottom: 5px;
             color: #f7d794;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
         }
-        header p {
-            font-size: 0.95em;
-            color: #f1f1f1;
+        .card {
+            background: #2a2a2a;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            margin-bottom: 20px;
         }
-        .admin-toggle-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(139, 69, 19, 0.8);
-            color: white;
-            border: 1px solid #f7d794;
-            padding: 6px 12px;
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
             border-radius: 6px;
+            border: 1px solid #444;
+            background: #333;
+            color: #fff;
+            font-size: 1em;
+        }
+        button {
+            background: #8B4513;
+            color: white;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 0.85em;
+            border: none;
+            transition: 0.2s;
         }
-        .container, .admin-container {
-            max-width: 600px;
-            margin: 10px auto;
-            padding: 0 15px;
+        button:hover {
+            background: #a0522d;
         }
-        .menu-item {
+        .item-row {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.94);
+            justify-content: space-between;
+            background: #333;
             padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            color: #2c2c2c;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            gap: 12px;
-        }
-        .item-img {
-            width: 75px;
-            height: 75px;
-            object-fit: cover;
             border-radius: 8px;
-            border: 2px solid #8B4513;
+            margin-bottom: 10px;
+            gap: 10px;
         }
-        .item-details {
+        .item-info {
             flex-grow: 1;
         }
-        .item-details h3 {
-            font-size: 1em;
-            color: #2c2c2c;
+        .btn-danger {
+            background: #e74c3c;
+            width: auto;
+            padding: 8px 14px;
         }
-        .item-price {
-            font-size: 0.95em;
-            font-weight: bold;
-            color: #8B4513;
-            margin-top: 4px;
+        .btn-edit {
+            background: #f39c12;
+            width: auto;
+            padding: 8px 14px;
         }
-        .counter-box {
-            display: flex;
-            align-items: center;
-            background: #f0ebd8;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid #d4c5b9;
+        .hidden {
+            display: none;
         }
-        .counter-btn {
-            background: #8B4513;
-            color: white;
-            border: none;
-            width: 26px;
-            height: 26px;
-            font-size: 1.1em;
-            cursor: pointer;
-        }
-        .item-count {
-            width: 26px;
-            text-align: center;
-            font-weight: bold;
-            color: #333;
-        }
-        .payment-section {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-        .payment-box {
-            background: rgba(255, 255, 255, 0.94);
-            padding: 15px 20px;
-            border-radius: 12px;
-            color: #2c2c2c;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .payment-box h3 {
-            font-size: 1.1em;
-            color: #8B4513;
-            margin-bottom: 10px;
-        }
-        .payment-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95em;
-            font-weight: 600;
-            color: #333;
-            background: #f9f6f0;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid #d4c5b9;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-        .pay-link {
-            color: #0066cc;
-            text-decoration: underline;
-        }
-        .cart-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(44, 30, 22, 0.95);
-            color: white;
-            padding: 15px 20px;
+        .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 2px solid #f7d794;
-            z-index: 1000;
+            margin-bottom: 20px;
         }
-        .cart-total {
-            color: #f7d794;
-            font-weight: bold;
-            font-size: 1.1em;
+        .logout-btn {
+            background: #c0392b;
+            width: auto;
+            padding: 6px 15px;
+            font-size: 0.85em;
         }
-        .order-btn {
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        /* Admin Styles */
-        .admin-panel {
-            background: rgba(30, 30, 30, 0.95);
-            border: 2px solid #f7d794;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px auto;
-            max-width: 600px;
-        }
-        .admin-panel input, .admin-panel button {
-            width: 100%;
-            padding: 10px;
-            margin: 6px 0;
-            border-radius: 6px;
-            border: 1px solid #555;
-            background: #222;
-            color: #fff;
-        }
-        .admin-panel button {
-            background: #8B4513;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-        }
-        .admin-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #333;
-            padding: 10px;
-            margin-top: 8px;
-            border-radius: 6px;
-        }
-        .btn-danger { background: #e74c3c !important; width: auto !important; padding: 6px 12px !important; }
-        .btn-edit { background: #f39c12 !important; width: auto !important; padding: 6px 12px !important; margin-right: 5px; }
-        .hidden { display: none; }
-        .loading { text-align: center; padding: 30px; color: #f7d794; font-size: 1.1em; }
     </style>
 </head>
 <body>
 
-    <header>
-        <button class="admin-toggle-btn" onclick="toggleAdminPanel()">⚙️ አድሚን</button>
-        <h1>☕ ሜዞ ኮፊ (Mezo Coffee)</h1>
-        <p>የሚፈልጉትን ምግብ እና መጠጥ ይምረጡ፣ ክፍያውን ፈጽመው ትዕዛዝ ይላኩ</p>
-    </header>
+    <div class="container">
+        <h1>☕ Mezo Coffee - Admin Dashboard</h1>
 
-    <!-- Customer Menu View -->
-    <div id="customer-view">
-        <div class="container" id="menu-container">
-            <div class="loading">ሜኑውን በመጫን ላይ...</div>
+        <!-- 1. Password Protection Screen -->
+        <div id="login-card" class="card">
+            <h2 style="margin-bottom: 15px; text-align: center; color: #f7d794;">የአድሚን መግቢያ</h2>
+            <p style="color: #bbb; text-align: center; margin-bottom: 15px; font-size: 0.9em;">እባክዎ የማስተዳደሪያ ገጹን ለመክፈት የይለፍ ቃል ያስገቡ</p>
+            <input type="password" id="admin-pass" placeholder="የይለፍ ቃል ያስገቡ...">
+            <button onclick="checkPassword()">ግባ (Login)</button>
         </div>
 
-        <div class="payment-section">
-            <div class="payment-box">
-                <h3>💳 የክፍያ አማራጭ:</h3>
-                <label class="payment-label">
-                    <input type="radio" name="payment" value="ንግድ ባንክ (CBE: 1000085575337)" checked> 
-                    <div>ንግድ ባንክ (CBE) <br><small>አካውንት: <a href="tel:*847*1000085575337#" class="pay-link">1000085575337</a></small></div>
-                </label>
-                <label class="payment-label">
-                    <input type="radio" name="payment" value="ቴሌብር (Telebirr: 0988227317)"> 
-                    <div>ቴሌብር (Telebirr) <br><small>ስልክ: <a href="tel:*127*2*0988227317#" class="pay-link">0988227317</a></small></div>
-                </label>
-                <label class="payment-label">
-                    <input type="radio" name="payment" value="በቦታው ጥሬ ገንዘብ (Cash)"> 
-                    <div>በቦታው ጥሬ ገንዘብ (Cash)</div>
-                </label>
+        <!-- 2. Admin Private Dashboard (Shown only after correct password) -->
+        <div id="dashboard-card" class="hidden">
+            
+            <div class="header-bar">
+                <span style="color: #27ae60; font-weight: bold;">● አድሚን ገብቷል</span>
+                <button class="logout-btn" onclick="logout()">ውጣ (Logout)</button>
             </div>
-        </div>
 
-        <div class="cart-bar">
-            <div>አጠቃላይ: <span class="cart-total" id="total-price">0 ብር</span></div>
-            <button class="order-btn" onclick="sendOrder()">ትዕዛዝ ላክ 🚀</button>
-        </div>
-    </div>
-
-    <!-- Admin Panel View -->
-    <div id="admin-view" class="container hidden">
-        <div class="admin-panel">
-            <h2 id="admin-form-title" style="color: #f7d794; margin-bottom: 10px;">አዲስ ምግብ/መጠጥ ጨምር</h2>
-            <div id="login-box">
-                <input type="password" id="admin-pass" placeholder="የአድሚን የይለፍ ቃል (mezo123)...">
-                <button onclick="checkPassword()">ግባ (Login)</button>
-            </div>
-            <div id="dashboard-box" class="hidden">
+            <div class="card">
+                <h2 id="form-title" style="color: #f7d794; margin-bottom: 10px;">አዲስ ምግብ/መጠጥ ጨምር</h2>
                 <input type="hidden" id="item-id">
-                <input type="text" id="item-name" placeholder="የምግብ/መጠጥ ስም">
+                <input type="text" id="item-name" placeholder="የምግብ/መጠጥ ስም (ምሳሌ: Cappuccino)">
                 <input type="number" id="item-price" placeholder="ዋጋ በብር">
-                <input type="text" id="item-desc" placeholder="መግለጫ">
+                <input type="text" id="item-desc" placeholder="መግለጫ (Description)">
                 <input type="text" id="item-img" placeholder="የምስል ሊንክ (Image URL)">
                 <button id="save-btn" onclick="saveItem()">መዝግብ (Save Item)</button>
-                <button id="cancel-btn" onclick="resetForm()" class="hidden" style="background: #7f8c8d;">ሰርዝ</button>
-
-                <h3 style="margin: 20px 0 10px 0; border-top: 1px solid #444; padding-top: 10px;">የምግቦች ዝርዝር አስተዳደር</h3>
-                <div id="admin-menu-list"></div>
+                <button id="cancel-btn" onclick="resetForm()" class="hidden" style="background: #7f8c8d;">ሰርዝ (Cancel)</button>
             </div>
+
+            <div class="card">
+                <h2 style="color: #f7d794; margin-bottom: 15px;">የነባር ምግቦች ዝርዝር</h2>
+                <div id="admin-menu-list">
+                    <p style="text-align: center; color: #aaa;">መረጃዎችን በመጫን ላይ...</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwz3rHazk52QWlFNfB99aER7e1xFtM0O3XXcjBFBCsy3lYv2X3MIGrTw5lJtlxfDG14Mw/exec';
+        const PASSWORD = "mezo123"; // የአድሚን ፓስወርድ
         let menuItems = [];
-        let cart = {};
-        const ADMIN_PASS = "mezo123";
 
-        async function fetchMenu() {
+        function checkPassword() {
+            let inputPass = document.getElementById('admin-pass').value;
+            if (inputPass === PASSWORD) {
+                document.getElementById('login-card').classList.add('hidden');
+                document.getElementById('dashboard-card').classList.remove('hidden');
+                loadMenuItems();
+            } else {
+                alert("የተሳሳተ የይለፍ ቃል ነው!");
+            }
+        }
+
+        function logout() {
+            document.getElementById('admin-pass').value = '';
+            document.getElementById('dashboard-card').classList.add('hidden');
+            document.getElementById('login-card').classList.remove('hidden');
+        }
+
+        async function loadMenuItems() {
             try {
                 let response = await fetch(scriptURL);
                 menuItems = await response.json();
-                let container = document.getElementById('menu-container');
-                container.innerHTML = '<div style="font-size: 1.2em; color: #f7d794; margin-bottom: 10px; font-weight: bold;">🍽️ የሜዞ ኮፊ ዝርዝር</div>';
-                
-                cart = {};
-                menuItems.forEach(item => {
-                    cart[item.name] = { price: Number(item.price), count: 0 };
-                    container.innerHTML += `
-                        <div class="menu-item">
-                            <img src="${item.image}" alt="${item.name}" class="item-img">
-                            <div class="item-details">
-                                <h3>${item.name}</h3>
-                                <p style="font-size: 0.8em; color: #555;">${item.description}</p>
-                                <div class="item-price">${item.price} ብር</div>
-                            </div>
-                            <div class="counter-box">
-                                <button class="counter-btn" onclick="changeCount('${item.name}', -1)">-</button>
-                                <span class="item-count" id="count-${item.name}">0</span>
-                                <button class="counter-btn" onclick="changeCount('${item.name}', 1)">+</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            } catch (error) {
-                document.getElementById('menu-container').innerHTML = '<div class="loading" style="color: #ff6b6b;">ሜኑውን መጫን አልተቻለም።</div>';
-            }
-        }
+                let container = document.getElementById('admin-menu-list');
+                container.innerHTML = '';
 
-        function changeCount(itemName, delta) {
-            if (cart[itemName]) {
-                cart[itemName].count += delta;
-                if (cart[itemName].count < 0) cart[itemName].count = 0;
-                document.getElementById('count-' + itemName).innerText = cart[itemName].count;
-                updateTotal();
-            }
-        }
-
-        function updateTotal() {
-            let total = 0;
-            for (let item in cart) {
-                total += cart[item].count * cart[item].price;
-            }
-            document.getElementById('total-price').innerText = total + " ብር";
-        }
-
-        function sendOrder() {
-            let orderText = "☕ *አዲስ ትዕዛዝ ከ ሜዞ ኮፊ* ☕%0A%0A";
-            let hasItems = false, grandTotal = 0;
-
-            for (let item in cart) {
-                if (cart[item].count > 0) {
-                    hasItems = true;
-                    let itemTotal = cart[item].count * cart[item].price;
-                    grandTotal += itemTotal;
-                    orderText += `- ${item}: ${cart[item].count} ቁጥር (${itemTotal} ብር)%0A`;
+                if (menuItems.length === 0) {
+                    container.innerHTML = '<p style="text-align:center;">ምንም የተመዘገበ ነገር የለም።</p>';
+                    return;
                 }
-            }
 
-            if (!hasItems) {
-                alert("እባክዎ መጀመሪያ ከሜኑ ላይ ይምረጡ!");
-                return;
-            }
-
-            let payment = document.querySelector('input[name="payment"]:checked').value;
-            orderText += `%0A💰 *አጠቃላይ: ${grandTotal} ብር*%0A💳 *ክፍያ: ${payment}*`;
-            window.open(`https://wa.me/251988227317?text=${orderText}`, '_blank');
-        }
-
-        function toggleAdminPanel() {
-            let cv = document.getElementById('customer-view');
-            let av = document.getElementById('admin-view');
-            if (cv.classList.contains('hidden')) {
-                cv.classList.remove('hidden');
-                av.classList.add('hidden');
-            } else {
-                cv.classList.add('hidden');
-                av.classList.remove('hidden');
-            }
-        }
-
-        function checkPassword() {
-            if (document.getElementById('admin-pass').value === ADMIN_PASS) {
-                document.getElementById('login-box').classList.add('hidden');
-                document.getElementById('dashboard-box').classList.remove('hidden');
-                renderAdminList();
-            } else {
-                alert("የተሳሳተ የይለፍ ቃል!");
-            }
-        }
-
-        function renderAdminList() {
-            let container = document.getElementById('admin-menu-list');
-            container.innerHTML = '';
-            menuItems.forEach((item, index) => {
-                container.innerHTML += `
-                    <div class="admin-item-row">
-                        <div><strong>${item.name}</strong> - ${item.price} ብር</div>
-                        <div>
-                            <button class="btn-edit" onclick="editItem(${index})"> አስተካክል </button>
-                            <button class="btn-danger" onclick="deleteItem(${item.id})"> አጥፋ </button>
+                menuItems.forEach((item, index) => {
+                    let div = document.createElement('div');
+                    div.className = 'item-row';
+                    div.innerHTML = `
+                        <div class="item-info">
+                            <strong>${item.name}</strong> - ${item.price} ብር
+                            <br><small style="color: #bbb;">${item.description || ''}</small>
                         </div>
-                    </div>
-                `;
-            });
+                        <button class="btn-edit" onclick="editItem(${index})">አስተካክል</button>
+                        <button class="btn-danger" onclick="deleteItem(${item.id})">አጥፋ</button>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (err) {
+                alert("መረጃ መጫን አልተቻለም!");
+            }
         }
 
         async function saveItem() {
@@ -394,18 +197,29 @@
             let image = document.getElementById('item-img').value;
 
             if (!name || !price) {
-                alert("ስም እና ዋጋ ማስገባት ግዴታ ነው!");
+                alert("እባክዎ የምግቡን ስም እና ዋጋ ያስገቡ!");
                 return;
             }
 
-            let payload = { action: id ? "update" : "add", id, name, price, description, image };
+            let payload = {
+                action: id ? "update" : "add",
+                id: id,
+                name: name,
+                price: price,
+                description: description,
+                image: image
+            };
+
             document.getElementById('save-btn').innerText = "በመመዝገብ ላይ...";
 
-            await fetch(scriptURL, { method: "POST", body: JSON.stringify(payload) });
-            alert("በተሳካ ሁኔታ ተከናውኗል!");
+            await fetch(scriptURL, {
+                method: "POST",
+                body: JSON.stringify(payload)
+            });
+
+            alert(id ? "በተሳካ ሁኔታ ተስተካክሏል!" : "አዲስ ምግብ ተጨምሯል!");
             resetForm();
-            fetchMenu();
-            setTimeout(renderAdminList, 1000);
+            loadMenuItems();
         }
 
         function editItem(index) {
@@ -415,7 +229,8 @@
             document.getElementById('item-price').value = item.price;
             document.getElementById('item-desc').value = item.description;
             document.getElementById('item-img').value = item.image;
-            document.getElementById('admin-form-title').innerText = "ምግብ ማስተካከያ";
+
+            document.getElementById('form-title').innerText = "ምግብ/መጠጥ ማስተካከያ";
             document.getElementById('save-btn').innerText = "ለውጦችን አስቀምጥ";
             document.getElementById('cancel-btn').classList.remove('hidden');
         }
@@ -426,21 +241,22 @@
             document.getElementById('item-price').value = '';
             document.getElementById('item-desc').value = '';
             document.getElementById('item-img').value = '';
-            document.getElementById('admin-form-title').innerText = "አዲስ ምግብ/መጠጥ ጨምር";
+
+            document.getElementById('form-title').innerText = "አዲስ ምግብ/መጠጥ ጨምር";
             document.getElementById('save-btn').innerText = "መዝግብ (Save Item)";
             document.getElementById('cancel-btn').classList.add('hidden');
         }
 
         async function deleteItem(id) {
-            if (confirm("ይህን ንጥል ማጥፋት ይፈልጋሉ?")) {
-                await fetch(scriptURL, { method: "POST", body: JSON.stringify({ action: "delete", id: id }) });
-                alert("ተሰርዟል!");
-                fetchMenu();
-                setTimeout(renderAdminList, 1000);
+            if (confirm("ይህንን ምግብ በእርግጥ ማጥፋት ይፈልጋሉ?")) {
+                await fetch(scriptURL, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "delete", id: id })
+                });
+                alert("በተሳካ ሁኔታ ተሰርዟል!");
+                loadMenuItems();
             }
         }
-
-        fetchMenu();
     </script>
 </body>
 </html>
