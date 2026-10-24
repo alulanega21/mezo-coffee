@@ -3,169 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ሜዞ ኮፊ (Mezo Coffee) - ዲጂታል ሜኑ</title>
+    <title id="page-title">ሜዞ ኮፊ (Mezo Coffee)</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
                         url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1500&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #fff;
-            padding-bottom: 110px;
-            min-height: 100vh;
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: #fff; padding-bottom: 110px; min-height: 100vh;
         }
-        header {
-            text-align: center;
-            padding: 30px 15px 15px 15px;
-        }
-        header h1 {
-            font-size: 2.3em;
-            margin-bottom: 5px;
-            color: #f7d794;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        header p {
-            font-size: 0.95em;
-            color: #f1f1f1;
-        }
-        .container {
-            max-width: 600px;
-            margin: 10px auto;
-            padding: 0 15px;
-        }
-        .menu-item {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.94);
-            padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            color: #2c2c2c;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            gap: 12px;
-        }
-        .item-img {
-            width: 75px;
-            height: 75px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #8B4513;
-        }
-        .item-details {
-            flex-grow: 1;
-        }
-        .item-details h3 {
-            font-size: 1em;
-            color: #2c2c2c;
-        }
-        .item-price {
-            font-size: 0.95em;
-            font-weight: bold;
-            color: #8B4513;
-            margin-top: 4px;
-        }
-        .counter-box {
-            display: flex;
-            align-items: center;
-            background: #f0ebd8;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid #d4c5b9;
-        }
-        .counter-btn {
-            background: #8B4513;
-            color: white;
-            border: none;
-            width: 26px;
-            height: 26px;
-            font-size: 1.1em;
-            cursor: pointer;
-        }
-        .item-count {
-            width: 26px;
-            text-align: center;
-            font-weight: bold;
-            color: #333;
-        }
-        .payment-section {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-        .payment-box {
-            background: rgba(255, 255, 255, 0.94);
-            padding: 15px 20px;
-            border-radius: 12px;
-            color: #2c2c2c;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .payment-box h3 {
-            font-size: 1.1em;
-            color: #8B4513;
-            margin-bottom: 10px;
-        }
-        .payment-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95em;
-            font-weight: 600;
-            color: #333;
-            background: #f9f6f0;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid #d4c5b9;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-        .pay-link {
-            color: #0066cc;
-            text-decoration: underline;
-        }
-        .cart-bar {
+        header { text-align: center; padding: 25px 15px 15px 15px; position: relative; }
+        .cafe-logo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #f7d794; margin-bottom: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.4); }
+        header h1 { font-size: 2.2em; margin-bottom: 5px; color: #f7d794; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        header p { font-size: 0.9em; color: #f1f1f1; }
+        
+        /* Modern Admin Floating Button */
+        .admin-trigger-btn {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(44, 30, 22, 0.95);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 2px solid #f7d794;
-            z-index: 1000;
-        }
-        .cart-total {
+            bottom: 20px;
+            left: 20px;
+            background: #2c2c2c;
             color: #f7d794;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .order-btn {
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: bold;
+            border: 2px solid #f7d794;
+            padding: 10px 16px;
+            border-radius: 30px;
             cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
         }
+        .admin-trigger-btn:hover { background: #3c3c3c; transform: scale(1.05); }
+
+        .container { max-width: 600px; margin: 10px auto; padding: 0 15px; }
+        .menu-item {
+            display: flex; align-items: center; background: rgba(255, 255, 255, 0.94);
+            padding: 12px; margin-bottom: 12px; border-radius: 12px; color: #2c2c2c;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); gap: 12px;
+        }
+        .item-img { width: 75px; height: 75px; object-fit: cover; border-radius: 8px; border: 2px solid #8B4513; }
+        .item-details { flex-grow: 1; }
+        .item-details h3 { font-size: 1em; color: #2c2c2c; }
+        .item-price { font-size: 0.95em; font-weight: bold; color: #8B4513; margin-top: 4px; }
+        .counter-box { display: flex; align-items: center; background: #f0ebd8; border-radius: 6px; overflow: hidden; border: 1px solid #d4c5b9; }
+        .counter-btn { background: #8B4513; color: white; border: none; width: 26px; height: 26px; font-size: 1.1em; cursor: pointer; }
+        .item-count { width: 26px; text-align: center; font-weight: bold; color: #333; }
+        
+        .payment-section { max-width: 600px; margin: 20px auto; padding: 0 15px; }
+        .payment-box { background: rgba(255, 255, 255, 0.94); padding: 15px 20px; border-radius: 12px; color: #2c2c2c; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .payment-box h3 { font-size: 1.1em; color: #8B4513; margin-bottom: 10px; }
+        .payment-label { display: flex; align-items: center; gap: 10px; font-size: 0.95em; font-weight: 600; color: #333; background: #f9f6f0; padding: 10px 14px; border-radius: 8px; border: 1px solid #d4c5b9; cursor: pointer; margin-top: 8px; }
+        .pay-link { color: #0066cc; text-decoration: underline; }
+        
+        .cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(44, 30, 22, 0.95); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #f7d794; z-index: 1000; }
+        .cart-total { color: #f7d794; font-weight: bold; font-size: 1.1em; }
+        .order-btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; }
+
+        /* Modern Modal / Admin Overlay */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center;
+            z-index: 2000; padding: 15px; overflow-y: auto;
+        }
+        .modal-card {
+            background: #222; border: 2px solid #f7d794; padding: 25px; border-radius: 14px;
+            width: 100%; max-width: 550px; color: #fff; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .modal-card input, .modal-card button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #555; background: #333; color: #fff; font-size: 1em; }
+        .modal-card button { background: #8B4513; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
+        .modal-card button:hover { background: #a0522d; }
+        .admin-item-row { display: flex; justify-content: space-between; align-items: center; background: #333; padding: 10px; margin-top: 8px; border-radius: 8px; }
+        .btn-danger { background: #e74c3c !important; width: auto !important; padding: 6px 12px !important; }
+        .btn-edit { background: #f39c12 !important; width: auto !important; padding: 6px 12px !important; margin-right: 5px; }
+        .hidden { display: none !important; }
         .loading { text-align: center; padding: 30px; color: #f7d794; font-size: 1.1em; }
     </style>
 </head>
 <body>
 
+    <!-- Customer Header & Menu -->
     <header>
-        <h1>☕ ሜዞ ኮፊ (Mezo Coffee)</h1>
-        <p>የሚፈልጉትን ምግብ እና መጠጥ ይምረጡ፣ ክፍያውን ፈጽመው ትዕዛዝ ይላኩ</p>
+        <img id="header-logo" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=200&q=80" alt="Cafe Logo" class="cafe-logo">
+        <h1 id="header-name">ሜዞ ኮፊ (Mezo Coffee)</h1>
+        <p id="header-desc">የሚፈልጉትን ምግብ እና መጠጥ ይምረጡ፣ ክፍያውን ፈጽመው ትዕዛዝ ይላኩ</p>
     </header>
 
     <div class="container" id="menu-container">
@@ -190,22 +115,97 @@
         </div>
     </div>
 
+    <!-- Floating Admin Trigger Button -->
+    <button class="admin-trigger-btn" onclick="openAdminModal()">⚙️ አድሚን መግቢያ</button>
+
     <div class="cart-bar">
         <div>አጠቃላይ: <span class="cart-total" id="total-price">0 ብር</span></div>
         <button class="order-btn" onclick="sendOrder()">ትዕዛዝ ላክ 🚀</button>
+    </div>
+
+    <!-- Modern Admin Modal (Password & Dashboard) -->
+    <div id="admin-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="color: #f7d794;" id="modal-title">⚙️ የአድሚን ፓነል</h2>
+                <button onclick="closeAdminModal()" style="width: auto; padding: 6px 12px; background: #555;">✕ ዝጋ</button>
+            </div>
+
+            <!-- Password Box -->
+            <div id="login-box">
+                <p style="margin-bottom: 10px; font-size: 0.9em; color: #ccc;">እባክዎ የማስተዳደሪያ የይለፍ ቃል ያስገቡ፡</p>
+                <input type="password" id="admin-pass" placeholder="የይለፍ ቃል (mezo123)...">
+                <button onclick="checkPassword()">ግባ (Login)</button>
+            </div>
+
+            <!-- Dashboard Box -->
+            <div id="dashboard-box" class="hidden">
+                
+                <!-- Cafe Branding Section (Name & Logo) -->
+                <div style="background: #2a2a2a; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #444;">
+                    <h3 style="color: #f7d794; margin-bottom: 10px; font-size: 1.1em;">🎨 የካፌ ስም እና ሎጎ ማስተካከያ</h3>
+                    <input type="text" id="setting-cafe-name" placeholder="የካፌ ስም (ምሳሌ: Mezo Coffee)">
+                    <input type="text" id="setting-cafe-logo" placeholder="የሎጎ ምስል ሊንክ (Logo Image URL)">
+                    <button onclick="saveBranding()" style="background: #27ae60;">ብራንዲንግ አስተካክል (Save Branding)</button>
+                </div>
+
+                <hr style="border-color: #444; margin: 15px 0;">
+
+                <!-- Menu CRUD Section -->
+                <h3 id="admin-form-title" style="color: #f7d794; margin-bottom: 10px; font-size: 1.1em;">አዲስ ምግብ/መጠጥ ጨምር</h3>
+                <input type="hidden" id="item-id">
+                <input type="text" id="item-name" placeholder="የምግብ/መጠጥ ስም">
+                <input type="number" id="item-price" placeholder="ዋጋ በብር">
+                <input type="text" id="item-desc" placeholder="መግለጫ">
+                <input type="text" id="item-img" placeholder="የምስል ሊንክ (Image URL)">
+                <button id="save-btn" onclick="saveItem()">መዝግብ (Save Item)</button>
+                <button id="cancel-btn" onclick="resetForm()" class="hidden" style="background: #7f8c8d;">ሰርዝ</button>
+
+                <h3 style="margin: 25px 0 10px 0; border-top: 1px solid #444; padding-top: 15px; font-size: 1.1em;">የምግቦች ዝርዝር አስተዳደር</h3>
+                <div id="admin-menu-list"></div>
+            </div>
+        </div>
     </div>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwz3rHazk52QWlFNfB99aER7e1xFtM0O3XXcjBFBCsy3lYv2X3MIGrTw5lJtlxfDG14Mw/exec';
         let menuItems = [];
         let cart = {};
+        const ADMIN_PASS = "mezo123";
+
+        window.onload = function() {
+            loadBranding();
+            fetchMenu();
+        };
+
+        // Load Saved Cafe Name and Logo
+        function loadBranding() {
+            let savedName = localStorage.getItem('mezo_cafe_name');
+            let savedLogo = localStorage.getItem('mezo_cafe_logo');
+            if (savedName) {
+                document.getElementById('header-name').innerText = savedName;
+                document.getElementById('page-title').innerText = savedName;
+            }
+            if (savedLogo) {
+                document.getElementById('header-logo').src = savedLogo;
+            }
+        }
+
+        function saveBranding() {
+            let name = document.getElementById('setting-cafe-name').value;
+            let logo = document.getElementById('setting-cafe-logo').value;
+            if (name) localStorage.setItem('mezo_cafe_name', name);
+            if (logo) localStorage.setItem('mezo_cafe_logo', logo);
+            alert("የካፌ ስም እና ሎጎ በተሳካ ሁኔታ ተቀይረዋል!");
+            loadBranding();
+        }
 
         async function fetchMenu() {
             try {
                 let response = await fetch(scriptURL);
                 menuItems = await response.json();
                 let container = document.getElementById('menu-container');
-                container.innerHTML = '<div style="font-size: 1.2em; color: #f7d794; margin-bottom: 10px; font-weight: bold;">🍽️ የሜዞ ኮፊ ዝርዝር</div>';
+                container.innerHTML = '<div style="font-size: 1.2em; color: #f7d794; margin-bottom: 10px; font-weight: bold;">🍽️ የሜኑ ዝርዝር</div>';
                 
                 cart = {};
                 menuItems.forEach(item => {
@@ -249,7 +249,8 @@
         }
 
         function sendOrder() {
-            let orderText = "☕ *አዲስ ትዕዛዝ ከ ሜዞ ኮፊ* ☕%0A%0A";
+            let cafeName = localStorage.getItem('mezo_cafe_name') || "ሜዞ ኮፊ";
+            let orderText = `☕ *አዲስ ትዕዛዝ ከ ${cafeName}* ☕%0A%0A`;
             let hasItems = false, grandTotal = 0;
 
             for (let item in cart) {
@@ -271,7 +272,103 @@
             window.open(`https://wa.me/251988227317?text=${orderText}`, '_blank');
         }
 
-        fetchMenu();
+        // Admin Modal Controls
+        function openAdminModal() {
+            document.getElementById('admin-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function checkPassword() {
+            let pass = document.getElementById('admin-pass').value;
+            if (pass === ADMIN_PASS) {
+                document.getElementById('login-box').classList.add('hidden');
+                document.getElementById('dashboard-box').classList.remove('hidden');
+                document.getElementById('setting-cafe-name').value = localStorage.getItem('mezo_cafe_name') || "ሜዞ ኮፊ (Mezo Coffee)";
+                document.getElementById('setting-cafe-logo').value = localStorage.getItem('mezo_cafe_logo') || "";
+                loadAdminMenu();
+            } else {
+                alert("የተሳሳተ የይለፍ ቃል!");
+            }
+        }
+
+        async function loadAdminMenu() {
+            let response = await fetch(scriptURL);
+            menuItems = await response.json();
+            renderAdminList();
+        }
+
+        function renderAdminList() {
+            let container = document.getElementById('admin-menu-list');
+            container.innerHTML = '';
+            menuItems.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="admin-item-row">
+                        <div><strong>${item.name}</strong> - ${item.price} ብር</div>
+                        <div>
+                            <button class="btn-edit" onclick="editItem(${index})">አስተካክል</button>
+                            <button class="btn-danger" onclick="deleteItem(${item.id})">አጥፋ</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        async function saveItem() {
+            let id = document.getElementById('item-id').value;
+            let name = document.getElementById('item-name').value;
+            let price = document.getElementById('item-price').value;
+            let description = document.getElementById('item-desc').value;
+            let image = document.getElementById('item-img').value;
+
+            if (!name || !price) {
+                alert("ስም እና ዋጋ ማስገባት ግዴታ ነው!");
+                return;
+            }
+
+            let payload = { action: id ? "update" : "add", id, name, price, description, image };
+            document.getElementById('save-btn').innerText = "በመመዝገብ ላይ...";
+
+            await fetch(scriptURL, { method: "POST", body: JSON.stringify(payload) });
+            alert("በተሳካ ሁኔታ ተከናውኗል!");
+            resetForm();
+            loadAdminMenu();
+            fetchMenu();
+        }
+
+        function editItem(index) {
+            let item = menuItems[index];
+            document.getElementById('item-id').value = item.id;
+            document.getElementById('item-name').value = item.name;
+            document.getElementById('item-price').value = item.price;
+            document.getElementById('item-desc').value = item.description;
+            document.getElementById('item-img').value = item.image;
+            document.getElementById('admin-form-title').innerText = "ምግብ ማስተካከያ";
+            document.getElementById('save-btn').innerText = "ለውጦችን አስቀምጥ";
+            document.getElementById('cancel-btn').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('item-id').value = '';
+            document.getElementById('item-name').value = '';
+            document.getElementById('item-price').value = '';
+            document.getElementById('item-desc').value = '';
+            document.getElementById('item-img').value = '';
+            document.getElementById('admin-form-title').innerText = "አዲስ ምግብ/መጠጥ ጨምር";
+            document.getElementById('save-btn').innerText = "መዝግብ (Save Item)";
+            document.getElementById('cancel-btn').classList.add('hidden');
+        }
+
+        async function deleteItem(id) {
+            if (confirm("ይህን ንጥል ማጥፋት ይፈልጋሉ?")) {
+                await fetch(scriptURL, { method: "POST", body: JSON.stringify({ action: "delete", id: id }) });
+                alert("ተሰርዟል!");
+                loadAdminMenu();
+                fetchMenu();
+            }
+        }
     </script>
 </body>
 </html>
