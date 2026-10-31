@@ -22,22 +22,20 @@
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background: #2c2c2c;
-            color: #f7d794;
+            background: #8B4513;
+            color: #fff;
             border: 2px solid #f7d794;
-            padding: 10px 16px;
+            padding: 12px 18px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 1em;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            z-index: 9999;
             display: flex;
             align-items: center;
-            gap: 6px;
-            transition: 0.2s;
+            gap: 8px;
         }
-        .admin-trigger-btn:hover { background: #3c3c3c; transform: scale(1.05); }
 
         .container { max-width: 600px; margin: 10px auto; padding: 0 15px; }
         .menu-item {
@@ -67,7 +65,7 @@
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center;
-            z-index: 2000; padding: 15px; overflow-y: auto;
+            z-index: 20000; padding: 15px; overflow-y: auto;
         }
         .modal-card {
             background: #222; border: 2px solid #f7d794; padding: 25px; border-radius: 14px;
@@ -75,8 +73,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
         .modal-card input, .modal-card button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #555; background: #333; color: #fff; font-size: 1em; }
-        .modal-card button { background: #8B4513; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
-        .modal-card button:hover { background: #a0522d; }
+        .modal-card button { background: #8B4513; font-weight: bold; cursor: pointer; border: none; }
         .admin-item-row { display: flex; justify-content: space-between; align-items: center; background: #333; padding: 10px; margin-top: 8px; border-radius: 8px; }
         .btn-danger { background: #e74c3c !important; width: auto !important; padding: 6px 12px !important; }
         .btn-edit { background: #f39c12 !important; width: auto !important; padding: 6px 12px !important; margin-right: 5px; }
@@ -176,9 +173,12 @@
         window.onload = function() {
             loadBranding();
             fetchMenu();
+            // Auto open admin if URL has #admin
+            if (window.location.hash === '#admin') {
+                openAdminModal();
+            }
         };
 
-        // Load Saved Cafe Name and Logo
         function loadBranding() {
             let savedName = localStorage.getItem('mezo_cafe_name');
             let savedLogo = localStorage.getItem('mezo_cafe_logo');
@@ -272,7 +272,6 @@
             window.open(`https://wa.me/251988227317?text=${orderText}`, '_blank');
         }
 
-        // Admin Modal Controls
         function openAdminModal() {
             document.getElementById('admin-modal').classList.remove('hidden');
         }
